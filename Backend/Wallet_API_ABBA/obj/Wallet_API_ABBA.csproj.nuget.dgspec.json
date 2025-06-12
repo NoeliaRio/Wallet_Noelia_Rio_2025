@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\noe_l\\source\\repos\\Wallet_API_ABBA\\Wallet_API_ABBA.csproj": {}
+    "C:\\Users\\noe_l\\Desktop\\Wallet_Noelia_Rio_2025\\Backend\\Wallet_API_ABBA\\Wallet_API_ABBA.csproj": {}
   },
   "projects": {
-    "C:\\Users\\noe_l\\source\\repos\\Wallet_API_ABBA\\Wallet_API_ABBA.csproj": {
+    "C:\\Users\\noe_l\\Desktop\\Wallet_Noelia_Rio_2025\\Backend\\Wallet_API_ABBA\\Wallet_API_ABBA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\noe_l\\source\\repos\\Wallet_API_ABBA\\Wallet_API_ABBA.csproj",
+        "projectUniqueName": "C:\\Users\\noe_l\\Desktop\\Wallet_Noelia_Rio_2025\\Backend\\Wallet_API_ABBA\\Wallet_API_ABBA.csproj",
         "projectName": "Wallet_API_ABBA",
-        "projectPath": "C:\\Users\\noe_l\\source\\repos\\Wallet_API_ABBA\\Wallet_API_ABBA.csproj",
+        "projectPath": "C:\\Users\\noe_l\\Desktop\\Wallet_Noelia_Rio_2025\\Backend\\Wallet_API_ABBA\\Wallet_API_ABBA.csproj",
         "packagesPath": "C:\\Users\\noe_l\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\noe_l\\source\\repos\\Wallet_API_ABBA\\obj\\",
+        "outputPath": "C:\\Users\\noe_l\\Desktop\\Wallet_Noelia_Rio_2025\\Backend\\Wallet_API_ABBA\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,6 +49,22 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.6, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
