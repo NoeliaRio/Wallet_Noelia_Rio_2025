@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallet_API_ABBA", "Wallet_API_ABBA.csproj", "{7876DC5F-94EB-4575-BC2B-1B151676F866}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7876DC5F-94EB-4575-BC2B-1B151676F866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7876DC5F-94EB-4575-BC2B-1B151676F866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7876DC5F-94EB-4575-BC2B-1B151676F866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7876DC5F-94EB-4575-BC2B-1B151676F866}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85595CE3-274E-48F7-B9CA-9804083E793C}
+	EndGlobalSection
+EndGlobal
