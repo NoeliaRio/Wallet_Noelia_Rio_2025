@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registros</title>
+</head>
+<body>
+    <h1>Registrar Cripto</h1>
+    
+    <label>Criptomoneda:</label>
+    <input type="text" id="txtCriptomoneda"><br>
+
+    <label>Exchange:</label>
+    <input type="text" id="txtExchange"><br>
+
+    <label>Cantidad:</label>
+    <input type="number" id="txtCantidad"><br>
+
+    <label>Valor:</label>
+    <input type="number" id="txtValor"><br>
+
+    <label>Fecha:</label>
+    <input type="datetime-local" id="txtFecha"><br>
+
+    <label>OperacionId:</label>
+    <input type="number" id="txtOperacionId"><br>
+
+    <button onclick="EnviarRegistro()">Guardar</button>
+    <button onclick="ListarRegistros()">Listar</button>
+
+    <ul id="listaRegistros"></ul>
+
+    <script src="app.js"></script>
+</body>
+</html>
