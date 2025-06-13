@@ -1,14 +1,26 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Wallet_API_ABBA.Data;
+using Wallet_API_ABBA.Models;
 
 namespace Wallet_API_ABBA.Controllers
 {
 	public class API_ABBA : Controller
 	{
+		private readonly BaseDatos _baseDatos = new BaseDatos();
+
 		// GET: API_ABBA
-		public ActionResult Index()
+		public IActionResult ListarRegistros()
 		{
-			return View();
+			try
+			{
+				var registros = _baseDatos.ObtenerRegistros(0);
+				return Ok(registros);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest("Error al obtener los registros: " + ex.Message);
+			}
 		}
 
 		// GET: API_ABBA/Details/5
@@ -26,15 +38,23 @@ namespace Wallet_API_ABBA.Controllers
 		// POST: API_ABBA/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection)
+		public IActionResult GuardarRegistro([FromBody] Registro registro)
 		{
 			try
 			{
-				return RedirectToAction(nameof(Index));
+				string resultado = _baseDatos.GuardarRegistro(registro);
+				if (string.IsNullOrEmpty(resultado))
+				{
+					return Ok("Registro guardado correctamente");
+				}
+				else
+				{
+					return BadRequest(resultado);
+				}
 			}
-			catch
+			catch (Exception ex)
 			{
-				return View();
+				return BadRequest("Error al guardar: " + ex.Message);
 			}
 		}
 
@@ -44,20 +64,7 @@ namespace Wallet_API_ABBA.Controllers
 			return View();
 		}
 
-		// POST: API_ABBA/Edit/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int id, IFormCollection collection)
-		{
-			try
-			{
-				return RedirectToAction(nameof(Index));
-			}
-			catch
-			{
-				return View();
-			}
-		}
+
 
 		// GET: API_ABBA/Delete/5
 		public ActionResult Delete(int id)

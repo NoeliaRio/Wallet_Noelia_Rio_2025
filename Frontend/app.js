@@ -1,5 +1,5 @@
 function ListarRegistros() {
-    fetch("https://localhost:7142/api/registros/listar")
+    fetch("https://localhost:7254/api/registros/listar")
     .then(response => {
         if (!response.ok) {
             alert(response.status);
@@ -46,7 +46,7 @@ function EnviarRegistro() {
         operacionId: operacionId
     };
 
-    fetch("https://localhost:7142/api/registros/guardar", {
+    fetch("https://localhost:7254/api/registros/guardar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
