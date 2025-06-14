@@ -21,19 +21,21 @@ h2 {
 
 /* Estilo tipo "moneda flotante" */
 .tarjeta {
-    width: 160px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
     background-color: white;
     border-radius: 50%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    padding: 14px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-weight: bold;
     transition: transform 0.3s ease;
+    line-height: 1;
 }
+
 
 .tarjeta:hover {
     transform: translateY(-5px);
