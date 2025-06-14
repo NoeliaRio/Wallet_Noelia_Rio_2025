@@ -5,11 +5,13 @@ using Wallet_API_ABBA.Models;
 
 namespace Wallet_API_ABBA.Controllers
 {
+	
 	public class API_ABBA : Controller
 	{
 		private readonly BaseDatos _baseDatos = new BaseDatos();
 
 		// GET: API_ABBA
+		[HttpGet]
 		public IActionResult ListarRegistros()
 		{
 			try
@@ -23,21 +25,8 @@ namespace Wallet_API_ABBA.Controllers
 			}
 		}
 
-		// GET: API_ABBA/Details/5
-		public ActionResult Details(int id)
-		{
-			return View();
-		}
-
-		// GET: API_ABBA/Create
-		public ActionResult Create()
-		{
-			return View();
-		}
-
-		// POST: API_ABBA/Create
+		// POST: API_ABBA
 		[HttpPost]
-		[ValidateAntiForgeryToken]
 		public IActionResult GuardarRegistro([FromBody] Registro registro)
 		{
 			try
@@ -58,33 +47,5 @@ namespace Wallet_API_ABBA.Controllers
 			}
 		}
 
-		// GET: API_ABBA/Edit/5
-		public ActionResult Edit(int id)
-		{
-			return View();
-		}
-
-
-
-		// GET: API_ABBA/Delete/5
-		public ActionResult Delete(int id)
-		{
-			return View();
-		}
-
-		// POST: API_ABBA/Delete/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id, IFormCollection collection)
-		{
-			try
-			{
-				return RedirectToAction(nameof(Index));
-			}
-			catch
-			{
-				return View();
-			}
-		}
 	}
 }
