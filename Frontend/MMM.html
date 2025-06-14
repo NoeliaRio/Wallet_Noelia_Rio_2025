@@ -2,10 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registros</title>
+    <title>Wallet Money Money Money</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Registrar Cripto</h1>
+    <h2>Precios en Exchanges</h2>
+
+    <div id="precios-container"></div>
+    <script src="CriptoPrecios.js"></script>
+    <script>renderizarTarjetas();</script>
+
     
     <label>Criptomoneda:</label>
     <input type="text" id="txtCriptomoneda"><br>
@@ -31,5 +37,6 @@
     <ul id="listaRegistros"></ul>
 
     <script src="app.js"></script>
+
 </body>
 </html>
