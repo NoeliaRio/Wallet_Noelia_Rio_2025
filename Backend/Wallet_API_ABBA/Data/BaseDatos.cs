@@ -54,8 +54,9 @@ namespace Wallet_API_ABBA.Data
 						Id = (int)reader["Id"],
 						Criptomoneda = reader["Criptomoneda"].ToString(),
 						Exchange = reader["Exchange"].ToString(),
-						Cantidad = (int)reader["Cantidad"],
-						Valor = (int)reader["Valor"],
+						Cantidad = (decimal)reader["Cantidad"],
+						Valor = (decimal)reader["Valor"],
+						TotalCompra = (decimal)reader["TotalCompra"],
 						Fecha = (DateTime)reader["Fecha"],
 						OperacionId = operacionId,
 						operacion = ObtenerOperaciones(operacionId).FirstOrDefault()
@@ -72,8 +73,8 @@ namespace Wallet_API_ABBA.Data
 			{
 				try
 				{
-					string query = $"INSERT INTO Registros (Criptomoneda, Exchange, Cantidad, Valor, Fecha, OperacionId) " +
-								   $"VALUES ('{registro.Criptomoneda}', '{registro.Exchange}', {registro.Cantidad}, {registro.Valor}, '{registro.Fecha:yyyy-MM-dd HH:mm:ss}', {registro.OperacionId})";
+					string query = $"INSERT INTO Registros (Criptomoneda, Exchange, Cantidad, Valor, TotalCompra, Fecha, OperacionId) " +
+								   $"VALUES ('{registro.Criptomoneda}', '{registro.Exchange}', {registro.Cantidad}, {registro.Valor}, {registro.TotalCompra}, '{registro.Fecha:yyyy-MM-dd HH:mm:ss}', {registro.OperacionId})";
 
 					con.Open();
 					SqlCommand cmd = new SqlCommand(query, con);
