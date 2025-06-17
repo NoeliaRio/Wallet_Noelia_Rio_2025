@@ -2,7 +2,7 @@
 
 //Dado que no podia unir como esparava decidi crear un controlador espesifico de para api
 //pero al final el otro empezo a  andar, no me anime a  borrar este  por si acaso pero lo deje comentado
-//"Si algo funciona, no lo toques" 
+//"Si algo funciona, no lo toques"
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

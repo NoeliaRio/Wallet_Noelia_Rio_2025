@@ -73,12 +73,23 @@ namespace Wallet_API_ABBA.Data
 			{
 				try
 				{
-					string query = $"INSERT INTO Registros (Criptomoneda, Exchange, Cantidad, Valor, TotalCompra, Fecha, OperacionId) " +
-								   $"VALUES ('{registro.Criptomoneda}', '{registro.Exchange}', {registro.Cantidad}, {registro.Valor}, {registro.TotalCompra}, '{registro.Fecha:yyyy-MM-dd HH:mm:ss}', {registro.OperacionId})";
+					string query = "INSERT INTO Registros (Criptomoneda, Exchange, Cantidad, Valor, TotalCompra, Fecha, OperacionId) " +
+								  "VALUES (@Criptomoneda, @Exchange, @Cantidad, @Valor, @TotalCompra, @Fecha, @OperacionId)";
 
 					con.Open();
 					SqlCommand cmd = new SqlCommand(query, con);
+
+					// Usar parámetros para evitar inyección SQL y problemas de formato
+					cmd.Parameters.AddWithValue("@Criptomoneda", registro.Criptomoneda);
+					cmd.Parameters.AddWithValue("@Exchange", registro.Exchange);
+					cmd.Parameters.AddWithValue("@Cantidad", registro.Cantidad);
+					cmd.Parameters.AddWithValue("@Valor", registro.Valor);
+					cmd.Parameters.AddWithValue("@TotalCompra", registro.TotalCompra);
+					cmd.Parameters.AddWithValue("@Fecha", registro.Fecha);
+					cmd.Parameters.AddWithValue("@OperacionId", registro.OperacionId);
+
 					cmd.ExecuteNonQuery();
+					return "Registro guardado correctamente";
 				}
 				catch (Exception ex)
 				{
@@ -86,7 +97,6 @@ namespace Wallet_API_ABBA.Data
 				}
 			}
 
-			return "";
 		}
 
 		public string GuardarOperacion(Operacion operacion)

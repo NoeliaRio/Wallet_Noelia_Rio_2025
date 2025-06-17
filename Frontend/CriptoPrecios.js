@@ -2,6 +2,7 @@ const criptomonedas = ["BTC", "ETH", "USDT"];
 const exchanges = ["bybit", "pollux", "satoshitango"];
 const fiat = "ARS";
 const volumen = 1;
+let preciosGlobales = {};
 
 async function consultarCriptoPrecios() {
   const resultados = {};
@@ -15,16 +16,20 @@ async function consultarCriptoPrecios() {
         const response = await fetch(url);
         if (!response.ok) {
           console.error(`HTTP ${response.status} en ${exchange}/${cripto}`);
-          resultados[cripto][exchange] = "—";
+          resultados[cripto][exchange] = { raw: 0, formato: "—" };
           continue;
         }
         const data = await response.json();
-        const precio = data.ask ?? "—";  
-        resultados[cripto][exchange] = precio.toLocaleString("es-AR", { style: "currency", currency: "ARS" });
+        const precio = data.ask ?? 0;
+
+        resultados[cripto][exchange] = {
+          raw: precio,
+          formato: precio.toLocaleString("es-AR", { style: "currency", currency: "ARS" })
+        };
 
       } catch (err) {
         console.error(`Error en fetch ${exchange}/${cripto}:`, err);
-        resultados[cripto][exchange] = "—";
+        resultados[cripto][exchange] = { raw: 0, formato: "—" };
       }
     }
   }
@@ -35,6 +40,7 @@ async function consultarCriptoPrecios() {
 
 async function renderizarTarjetas() {
     const resultados = await consultarCriptoPrecios();
+    preciosGlobales = resultados;
     const cont = document.getElementById("precios-container");
     cont.innerHTML = "";
   
@@ -44,10 +50,35 @@ async function renderizarTarjetas() {
       div.classList.add("tarjeta");
       div.innerHTML = `
         <h3>${cripto}</h3>
-        <p><strong>Bybit:</strong> ${precios.bybit}</p>
-        <p><strong>Pollux:</strong> ${precios.pollux}</p>
-        <p><strong>Satoshi:</strong> ${precios.satoshitango}</p>
+        <p><strong>Bybit:</strong> ${precios.bybit.formato}</p>
+        <p><strong>Pollux:</strong> ${precios.pollux.formato}</p>
+        <p><strong>Satoshi:</strong> ${precios.satoshitango.formato}</p>
       `;
       cont.appendChild(div);
     }
   }
+  function calcularValorYTotal() {
+    const cripto = document.getElementById("txtCriptomoneda").value;
+    const exchange = document.getElementById("txtExchange").value.toLowerCase();
+    const cantidad = parseFloat(document.getElementById("txtCantidad").value);
+
+    if (!cripto || !exchange || isNaN(cantidad)) {
+        alert("Seleccioná criptomoneda, exchange y cantidad antes de calcular.");
+        return;
+    }
+
+    const datosCripto = preciosGlobales[cripto]?.[exchange];
+    if (!datosCripto || typeof datosCripto.raw !== "number") {
+        alert("No se encontró el valor para esa combinación.");
+        return;
+    }
+
+    const valorUnitario = datosCripto.raw;
+
+    // Setear valor y total
+    document.getElementById("txtValor").value = valorUnitario.toFixed(2);
+    document.getElementById("txtTotal").value = (valorUnitario * cantidad).toFixed(2);
+
+    document.getElementById("precioInfo").textContent =
+        `Precio actual de ${cripto} en ${exchange.charAt(0).toUpperCase() + exchange.slice(1)}: $${valorUnitario.toFixed(2)} ARS`;
+}

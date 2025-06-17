@@ -23,15 +23,59 @@ function mostrarRegistros(registros) {
     });
 }
 
+// Constantes
+const inputFecha = document.getElementById("txtFecha");
+inputFecha.valueAsDate = new Date(); // pone la fecha de hoy por defecto
+const inputCantidad = document.getElementById("txtCantidad");
+const inputValor = document.getElementById("txtValor");
+const inputTotal = document.getElementById("txtTotal");
+
+function actualizarTotal() {
+    const cantidad = parseFloat(inputCantidad.value) || 0;
+    const valor = parseFloat(inputValor.value) || 0;
+    inputTotal.value = (cantidad * valor).toFixed(2);
+}
+
+inputCantidad.addEventListener("input", actualizarTotal);
+inputValor.addEventListener("input", actualizarTotal);
+
+const tablaValores = {
+    Binance: { BTC: 65000, ETH: 3400, USDT: 1 },
+    Coinbase: { BTC: 65500, ETH: 3450, USDT: 1.01 },
+};
+
+document.getElementById("txtCriptomoneda").addEventListener("change", actualizarValor);
+document.getElementById("txtExchange").addEventListener("change", actualizarValor);
+
+function actualizarValor() {
+    const cripto = document.getElementById("txtCriptomoneda").value;
+    const exchange = document.getElementById("txtExchange").value;
+    const valor = tablaValores[exchange]?.[cripto] ?? 0;
+    inputValor.value = valor;
+    actualizarTotal(); // recalcula el total al cambiar valor
+}
+
+function LimpiarFormulario() {
+    inputCantidad.value = "";
+    inputValor.value = "";
+    inputTotal.value = "";
+    document.getElementById("txtOperacionId").value = "";
+    inputFecha.valueAsDate = new Date();
+}
+
 function EnviarRegistro() {
     const cripto = document.getElementById("txtCriptomoneda").value;
     const exchange = document.getElementById("txtExchange").value;
     const cantidad = parseInt(document.getElementById("txtCantidad").value);
     const valor = parseInt(document.getElementById("txtValor").value);
+    const totalCompra = parseFloat(document.getElementById("txtTotal").value);
     const fecha = document.getElementById("txtFecha").value;
     const operacionId = parseInt(document.getElementById("txtOperacionId").value);
 
-    if (!cripto || !exchange || isNaN(cantidad) || isNaN(valor) || !fecha || isNaN(operacionId)) {
+    // Generar fecha actual en formato YYYY-MM-DD HH:mm:ss
+
+
+    if (!cripto || !exchange || isNaN(cantidad) || isNaN(valor) || isNaN(totalCompra)|| !fecha || isNaN(operacionId)) {
         alert("Completa todos los campos correctamente.");
         return;
     }
@@ -42,6 +86,7 @@ function EnviarRegistro() {
         exchange: exchange,
         cantidad: cantidad,
         valor: valor,
+        totalCompra: totalCompra,
         fecha: fecha,
         operacionId: operacionId
     };
@@ -53,15 +98,18 @@ function EnviarRegistro() {
         },
         body: JSON.stringify(nuevoRegistro)
     })
-    .then(response => {
+ .then(response => {
         if (!response.ok) {
-            alert("Error al guardar el registro");
+            response.text().then(texto => {
+                alert("Error al guardar: " + texto);
+            });
             return;
         }
         alert("Registro guardado correctamente");
+        LimpiarFormulario();
         ListarRegistros();
     })
     .catch(error => {
-        alert("Error: " + error);
+        alert("Error de red o servidor: " + error.message);
     });
 }

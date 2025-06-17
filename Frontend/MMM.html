@@ -11,31 +11,42 @@
     <div id="precios-container"></div>
     <script src="CriptoPrecios.js"></script>
     <script>renderizarTarjetas();</script>
-
-    
-    <label>Criptomoneda:</label>
-    <input type="text" id="txtCriptomoneda"><br>
-
-    <label>Exchange:</label>
-    <input type="text" id="txtExchange"><br>
-
-    <label>Cantidad:</label>
-    <input type="number" id="txtCantidad"><br>
-
-    <label>Valor:</label>
-    <input type="number" id="txtValor"><br>
-
-    <label>Fecha:</label>
-    <input type="datetime-local" id="txtFecha"><br>
-
-    <label>OperacionId:</label>
-    <input type="number" id="txtOperacionId"><br>
-
-    <button onclick="EnviarRegistro()">Guardar</button>
+    <form onsubmit="EnviarRegistro(); return false;"></form>
+        <h2>Formulario de compra y venta</h2>
+        <!-- Selección de criptomoneda y exchange -->
+        <label>Criptomoneda:</label>
+        <select id="txtCriptomoneda"  required>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <option value="USDT">USDT</option>
+        </select>
+        <label>Exchange:</label>
+        <select id="txtExchange"  required>
+            <option value="bybit">Bybit</option>
+            <option value="pollux">Pollux</option>
+            <option value="satoshitango">Satoshitango</option>
+        </select>
+        <label>Cantidad:</label>
+        <input type="number" id="txtCantidad" required min="0.0001" step="any"><br>
+        <label>Valor:</label>
+        <input type="number" id="txtValor" readonly /><br>
+        <label>Total:</label>
+        <input type="number" id="txtTotal" readonly /><br>
+        <label>Fecha:</label>
+        <input type="datetime-local" id="txtFecha" required><br>
+        <label>Tipo de operación:</label>
+        <select id="txtOperacionId">
+            <option value="">-- Seleccionar --</option>
+            <option value="1">Compra</option>
+            <option value="2">Venta</option>
+        </select><br>
+        <button type="button" onclick="calcularValorYTotal()">Calcular</button>
+        <button onclick="EnviarRegistro()">Guardar</button>
+    </form>
+    <p id="precioInfo"></p>
     <button onclick="ListarRegistros()">Listar</button>
 
     <ul id="listaRegistros"></ul>
-
     <script src="app.js"></script>
 
 </body>
