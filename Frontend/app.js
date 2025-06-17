@@ -7,7 +7,8 @@ function ListarRegistros() {
         return response.json();
     })
     .then(data => {
-        mostrarRegistros(data);
+        mostrarResumenCriptos(data); // Mostrar el resumen
+        mostrarRegistros(data);     // Mostrar el listado detallado
     })
     .catch(error => console.error("Error al obtener registros:", error));
 }
@@ -16,11 +17,70 @@ function mostrarRegistros(registros) {
     const lista = document.getElementById("listaRegistros");
     lista.innerHTML = "";
 
+    // Ordenar por fecha (más reciente primero)
+    registros.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
     registros.forEach(registro => {
         const item = document.createElement("li");
-        item.textContent = `CRIPTO: ${registro.criptomoneda} - EXCHANGE: ${registro.exchange} - CANTIDAD: ${registro.cantidad} - VALOR: ${registro.valor}`;
+        item.className = "registro-item";
+
+        const fecha = new Date(registro.fecha);
+        const fechaFormateada = fecha.toLocaleString();
+        
+        // Determinar color según operación (Azul compra Naranja venta por ahora)
+        const color = registro.operacionId === 1 ? 'blue' : 'orange';
+        const tipoOperacion = registro.operacionId === 1 ? 'COMPRA' : 'VENTA';
+        
+        item.innerHTML = `
+            <span style="color: #666;">${fechaFormateada}</span> - 
+            <strong>${registro.criptomoneda}</strong> - 
+            <span style="color: ${color};">${tipoOperacion}</span> - 
+            Cantidad: ${registro.cantidad} - 
+            Valor: $${registro.valor} - 
+            Total: $${registro.totalCompra} - 
+            Exchange: ${registro.exchange}
+        `;
+        
         lista.appendChild(item);
     });
+}
+
+function mostrarResumenCriptos(registros) {
+    const resumen = {
+        BTC: { compras: 0, ventas: 0, balance: 0 },
+        ETH: { compras: 0, ventas: 0, balance: 0 },
+        USDT: { compras: 0, ventas: 0, balance: 0 }
+    };
+
+    registros.forEach(registro => {
+        if (registro.operacionId === 1) { // Compra
+            resumen[registro.criptomoneda].compras += registro.cantidad;
+            resumen[registro.criptomoneda].balance += registro.cantidad;
+        } else if (registro.operacionId === 2) { // Venta
+            resumen[registro.criptomoneda].ventas += registro.cantidad;
+            resumen[registro.criptomoneda].balance -= registro.cantidad;
+        }
+    });
+
+    // Mostrar tarjetas
+    const container = document.getElementById('precios-container');
+    container.innerHTML = ''; // Limpiar antes de agregar
+    
+    for (const [moneda, datos] of Object.entries(resumen)) {
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'tarjeta';
+        
+        tarjeta.innerHTML = `
+            <div style="font-size: 24px; margin-bottom: 10px;">${moneda}</div>
+            <div style="color: green;">Compras: ${datos.compras.toFixed(8)}</div>
+            <div style="color: red;">Ventas: ${datos.ventas.toFixed(8)}</div>
+            <div style="font-size: 18px; margin-top: 10px; border-top: 1px solid #ccc; padding-top: 5px;">
+                Balance: ${datos.balance.toFixed(8)}
+            </div>
+        `;
+        
+        container.appendChild(tarjeta);
+    }
 }
 
 // Constantes

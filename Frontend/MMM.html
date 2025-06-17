@@ -6,13 +6,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <img src="1.png" alt="Logo" class="logo">
+        <h1 class="titulo-principal">Money! Money! Money!</h1>
+    </header>
+
     <h2>Precios en Exchanges</h2>
 
     <div id="precios-container"></div>
     <script src="CriptoPrecios.js"></script>
     <script>renderizarTarjetas();</script>
-    <form onsubmit="EnviarRegistro(); return false;"></form>
+    <div class="seccion-formulario">
         <h2>Formulario de compra y venta</h2>
+        <form onsubmit="EnviarRegistro(); return false;">
         <!-- Selección de criptomoneda y exchange -->
         <label>Criptomoneda:</label>
         <select id="txtCriptomoneda"  required>
@@ -42,12 +48,16 @@
         </select><br>
         <button type="button" onclick="calcularValorYTotal()">Calcular</button>
         <button onclick="EnviarRegistro()">Guardar</button>
-    </form>
-    <p id="precioInfo"></p>
-    <button onclick="ListarRegistros()">Listar</button>
+        </form>
+    </div>
 
-    <ul id="listaRegistros"></ul>
+    <div class="seccion-listado">
+        <button onclick="ListarRegistros()">Listar</button>
+        <ul id="listaRegistros"></ul>
+    </div>
     <script src="app.js"></script>
+
+    <div id="resumen-criptos"></div>
 
 </body>
 </html>
