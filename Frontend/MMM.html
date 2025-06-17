@@ -18,7 +18,7 @@
     <script>renderizarTarjetas();</script>
     <div class="seccion-formulario">
         <h2>Formulario de compra y venta</h2>
-        <form onsubmit="EnviarRegistro(); return false;">
+        <form >
         <!-- Selección de criptomoneda y exchange -->
         <label>Criptomoneda:</label>
         <select id="txtCriptomoneda"  required>
@@ -47,7 +47,7 @@
             <option value="2">Venta</option>
         </select><br>
         <button type="button" onclick="calcularValorYTotal()">Calcular</button>
-        <button onclick="EnviarRegistro()">Guardar</button>
+        <button type="button" onclick="EnviarRegistro()">Guardar</button>
         </form>
     </div>
 

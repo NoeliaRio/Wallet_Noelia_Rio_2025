@@ -45,6 +45,7 @@ function mostrarRegistros(registros) {
     });
 }
 
+// Mostrar resumen de criptomonedas sin usar 3 colores diferentes
 function mostrarResumenCriptos(registros) {
     const resumen = {
         BTC: { compras: 0, ventas: 0, balance: 0 },
@@ -53,75 +54,45 @@ function mostrarResumenCriptos(registros) {
     };
 
     registros.forEach(registro => {
-        if (registro.operacionId === 1) { // Compra
-            resumen[registro.criptomoneda].compras += registro.cantidad;
-            resumen[registro.criptomoneda].balance += registro.cantidad;
-        } else if (registro.operacionId === 2) { // Venta
-            resumen[registro.criptomoneda].ventas += registro.cantidad;
-            resumen[registro.criptomoneda].balance -= registro.cantidad;
+        const moneda = registro.criptomoneda;
+        const cantidad = registro.cantidad;
+
+        if (registro.operacionId === 1) {
+            resumen[moneda].compras += cantidad;
+            resumen[moneda].balance += cantidad;
+        } else if (registro.operacionId === 2) {
+            resumen[moneda].ventas += cantidad;
+            resumen[moneda].balance -= cantidad;
         }
     });
 
-    // Mostrar tarjetas
-    const container = document.getElementById('precios-container');
-    container.innerHTML = ''; // Limpiar antes de agregar
-    
+    const container = document.getElementById('resumen-criptos');
+    container.innerHTML = '';
+
+    const titulo = document.createElement('h2');
+    titulo.textContent = 'Resumen de Criptomonedas';
+    container.appendChild(titulo);
+
+    const tarjetasContainer = document.createElement('div');
+    tarjetasContainer.className = 'tarjetas-container';
+
     for (const [moneda, datos] of Object.entries(resumen)) {
         const tarjeta = document.createElement('div');
-        tarjeta.className = 'tarjeta';
-        
+        tarjeta.className = `tarjeta tarjeta-${moneda.toLowerCase()}`;
+
         tarjeta.innerHTML = `
-            <div style="font-size: 24px; margin-bottom: 10px;">${moneda}</div>
-            <div style="color: green;">Compras: ${datos.compras.toFixed(8)}</div>
-            <div style="color: red;">Ventas: ${datos.ventas.toFixed(8)}</div>
-            <div style="font-size: 18px; margin-top: 10px; border-top: 1px solid #ccc; padding-top: 5px;">
-                Balance: ${datos.balance.toFixed(8)}
-            </div>
+            <div class="tarjeta-titulo">${moneda}</div>
+            <div>Compras: ${datos.compras.toFixed(8)}</div>
+            <div>Ventas: ${datos.ventas.toFixed(8)}</div>
+            <div class="tarjeta-balance">Balance: ${datos.balance.toFixed(8)}</div>
         `;
-        
-        container.appendChild(tarjeta);
+
+        tarjetasContainer.appendChild(tarjeta);
     }
+
+    container.appendChild(tarjetasContainer);
 }
 
-// Constantes
-const inputFecha = document.getElementById("txtFecha");
-inputFecha.valueAsDate = new Date(); // pone la fecha de hoy por defecto
-const inputCantidad = document.getElementById("txtCantidad");
-const inputValor = document.getElementById("txtValor");
-const inputTotal = document.getElementById("txtTotal");
-
-function actualizarTotal() {
-    const cantidad = parseFloat(inputCantidad.value) || 0;
-    const valor = parseFloat(inputValor.value) || 0;
-    inputTotal.value = (cantidad * valor).toFixed(2);
-}
-
-inputCantidad.addEventListener("input", actualizarTotal);
-inputValor.addEventListener("input", actualizarTotal);
-
-const tablaValores = {
-    Binance: { BTC: 65000, ETH: 3400, USDT: 1 },
-    Coinbase: { BTC: 65500, ETH: 3450, USDT: 1.01 },
-};
-
-document.getElementById("txtCriptomoneda").addEventListener("change", actualizarValor);
-document.getElementById("txtExchange").addEventListener("change", actualizarValor);
-
-function actualizarValor() {
-    const cripto = document.getElementById("txtCriptomoneda").value;
-    const exchange = document.getElementById("txtExchange").value;
-    const valor = tablaValores[exchange]?.[cripto] ?? 0;
-    inputValor.value = valor;
-    actualizarTotal(); // recalcula el total al cambiar valor
-}
-
-function LimpiarFormulario() {
-    inputCantidad.value = "";
-    inputValor.value = "";
-    inputTotal.value = "";
-    document.getElementById("txtOperacionId").value = "";
-    inputFecha.valueAsDate = new Date();
-}
 
 function EnviarRegistro() {
     const cripto = document.getElementById("txtCriptomoneda").value;
@@ -131,9 +102,6 @@ function EnviarRegistro() {
     const totalCompra = parseFloat(document.getElementById("txtTotal").value);
     const fecha = document.getElementById("txtFecha").value;
     const operacionId = parseInt(document.getElementById("txtOperacionId").value);
-
-    // Generar fecha actual en formato YYYY-MM-DD HH:mm:ss
-
 
     if (!cripto || !exchange || isNaN(cantidad) || isNaN(valor) || isNaN(totalCompra)|| !fecha || isNaN(operacionId)) {
         alert("Completa todos los campos correctamente.");
@@ -166,8 +134,6 @@ function EnviarRegistro() {
             return;
         }
         alert("Registro guardado correctamente");
-        LimpiarFormulario();
-        ListarRegistros();
     })
     .catch(error => {
         alert("Error de red o servidor: " + error.message);

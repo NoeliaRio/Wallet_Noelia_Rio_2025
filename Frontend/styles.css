@@ -15,14 +15,20 @@ header {
 }
 
 .logo {
-    height: 60px;
-    margin-right: 15px;
+    height: 150px;
+    margin-right: 30px;
 }
 
 .titulo-principal {
-    color: #FFD700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-    margin: 0;
+    color: transparent;
+    font-size: 3rem;
+    background: linear-gradient(to right, #FFD700, #FFA500, #FFD700);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 25px 0;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 /* Contenedor principal blanco */
@@ -50,29 +56,7 @@ header {
     margin-bottom: 30px;
 }
 
-/* Estilo tipo "moneda flotante" */
-.tarjeta {
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-    border-radius: 50%;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 
-                0 0 0 8px rgba(255, 215, 0, 0.1),
-                0 0 0 12px rgba(255, 165, 0, 0.05);
-    padding: 14px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-    line-height: 1.3;
-    color: #333;
-    margin: 15px;
-    position: relative;
-    overflow: hidden;
-    border: 3px solid rgba(255, 255, 255, 0.5);
-}
+
 
 
 .tarjeta:hover {
@@ -138,8 +122,8 @@ button:hover {
 
 /* Estilo tipo "moneda flotante" - Versión mejorada */
 .tarjeta {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
     border-radius: 50%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 
@@ -180,20 +164,6 @@ button:hover {
                 0 0 0 12px rgba(255, 165, 0, 0.1);
 }
 
-/* Estilos específicos para cada moneda */
-.tarjeta[data-moneda="BTC"] {
-    background: linear-gradient(135deg, #F7931A 0%, #FF9900 100%);
-}
-
-.tarjeta[data-moneda="ETH"] {
-    background: linear-gradient(135deg, #627EEA 0%, #3C3C3D 100%);
-    color: white;
-}
-
-.tarjeta[data-moneda="USDT"] {
-    background: linear-gradient(135deg, #26A17B 0%, #50AF95 100%);
-    color: white;
-}
 
 /* Contenedor flexible para las monedas */
 #resumen-criptos {

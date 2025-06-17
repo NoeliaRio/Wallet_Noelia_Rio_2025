@@ -1,8 +1,78 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "ABBA API - Money Money Money";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .abba-theme {
+        background: linear-gradient(135deg, #0a2463 0%, #3e92cc 100%);
+        color: #fff;
+        min-height: 100vh;
+        padding: 2rem;
+    }
+    .gold-text {
+        color: #FFD700;
+        text-shadow: 1px 1px 2px #000;
+    }
+    .abba-logo {
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+    }
+    .money-money {
+        font-style: italic;
+        animation: pulse 2s infinite;
+    }
+    .api-description {
+        background-color: rgba(255, 215, 0, 0.1);
+        border-left: 4px solid #FFD700;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 0 8px 8px 0;
+    }
+    .btn-abba {
+        background-color: #FFD700;
+        color: #0a2463;
+        font-weight: bold;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        margin-top: 1rem;
+    }
+    @@keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+</style>
+
+<div class="abba-theme text-center">
+    <div class="abba-logo">
+        <span class="gold-text">ABBA</span> API
+    </div>
+
+    <h1 class="display-4 gold-text">Welcome to <span class="money-money">Money Money Money</span> Wallet</h1>
+
+    <div class="api-description text-left">
+        <h3 class="gold-text">Awesome Blockchain & Budget Assistant</h3>
+        <p>La API ABBA es el corazón de tu wallet <strong>Money Money Money</strong>, diseñada para hacer que administrar tus finanzas sea tan divertido como cantar una canción de ABBA.</p>
+
+        <h4 class="gold-text mt-4">¿Por qué ABBA?</h4>
+        <p>Porque al igual que el legendario grupo sueco, nuestra API es:</p>
+        <ul>
+            <li><strong>Brillante</strong> como el oro (y por eso nuestros colores)</li>
+            <li><strong>Eficiente</strong> como un coro pegadizo</li>
+            <li><strong>Inolvidable</strong> como "Dancing Queen"</li>
+        </ul>
+
+        <p>¡Con ABBA API, administrar tu dinero nunca fue tan <span class="gold-text">Mamma Mia!</span></p>
+    </div>
+
+    <div class="mt-5">
+        <h3 class="gold-text">¿Listo para comenzar?</h3>
+        <p>Explora nuestra documentación para descubrir cómo ABBA puede hacer tu vida financiera más brillante.</p>
+        <a href="/swagger" class="btn btn-abba btn-lg">Ver Documentación API</a>
+    </div>
+
+    <div class="mt-5" style="font-size: 0.8rem;">
+        <p>Money Money Money Wallet - Porque el dinero debería ser tan feliz como una canción de ABBA</p>
+    </div>
 </div>
